@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inschos.cloud.message.handing.data.mapper.MsgSmsRecordMapper">
+
+    <sql id="Base_Column_List">
+        `id`,`source_code`,`send_type`,`status`,`tmp_code`,`send_content`,`content`,`created_at`,`updated_at`
+    </sql>
+
+    <insert id="insert" parameterType="MsgSmsRecord">
+        insert ignore into msg_sms_record(`source_code`,`send_type`,`status`,`tmp_code`,`send_content`,`content`,`created_at`,`updated_at`)
+        values(
+          #{source_code},#{send_type},#{status},#{tmp_code},#{send_content},#{content},#{created_at},#{updated_at}
+        )
+    </insert>
+
+    <update id="update" parameterType="MsgSmsRecord">
+        update msg_sms_record set
+          `source_code`=#{source_code},`send_type`=#{send_type},`status`=#{status},`tmp_code`=#{tmp_code},`send_content`=#{send_content},`content`=#{content},`created_at`=#{created_at},`updated_at`=#{updated_at}
+        where `id`=#{id}
+    </update>
+
+    <select id="findOne" parameterType="long" resultType="MsgSmsRecord">
+        select
+        <include refid="Base_Column_List"/>
+        from msg_sms_record
+        where `id`=#{id}
+    </select>
+
+</mapper>
