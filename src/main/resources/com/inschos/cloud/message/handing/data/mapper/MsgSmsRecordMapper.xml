@@ -3,19 +3,19 @@
 <mapper namespace="com.inschos.cloud.message.handing.data.mapper.MsgSmsRecordMapper">
 
     <sql id="Base_Column_List">
-        `id`,`source_code`,`send_type`,`status`,`tmp_code`,`send_content`,`content`,`created_at`,`updated_at`
+        `id`,`source_code`,`send_phone`,`send_type`,`status`,`tmp_code`,`send_content`,`content`,`created_at`,`updated_at`
     </sql>
 
     <insert id="insert" parameterType="MsgSmsRecord" keyProperty="id" useGeneratedKeys="true">
-        insert ignore into msg_sms_record(`source_code`,`send_type`,`status`,`tmp_code`,`send_content`,`content`,`created_at`,`updated_at`)
+        insert ignore into msg_sms_record(`source_code`,`send_phone`,`send_type`,`status`,`tmp_code`,`send_content`,`content`,`created_at`,`updated_at`)
         values(
-          #{source_code},#{send_type},#{status},#{tmp_code},#{send_content},#{content},#{created_at},#{updated_at}
+          #{source_code},#{send_phone},#{send_type},#{status},#{tmp_code},#{send_content},#{content},#{created_at},#{updated_at}
         )
     </insert>
 
     <update id="update" parameterType="MsgSmsRecord">
         update msg_sms_record set
-          `source_code`=#{source_code},`send_type`=#{send_type},`status`=#{status},`tmp_code`=#{tmp_code},`send_content`=#{send_content},`content`=#{content},`created_at`=#{created_at},`updated_at`=#{updated_at}
+          `source_code`=#{source_code},`send_phone`=#{send_phone},`send_type`=#{send_type},`status`=#{status},`tmp_code`=#{tmp_code},`send_content`=#{send_content},`content`=#{content},`created_at`=#{created_at},`updated_at`=#{updated_at}
         where `id`=#{id}
     </update>
 

@@ -85,17 +85,11 @@ public class AliyunSms {
     /**
      * 发送短信
      */
-    public  boolean sendSms(String signName,String templateCode, String params, String  outId, String ... phones) {
-        boolean result = false;
+    public  SendSmsResponse sendSms(String signName,String templateCode, String params, String  outId, String ... phones) {
+
         SendSmsResponse response = sendMsg(signName,templateCode, params, null, phones);
-        if(response!=null && response.getCode() != null){
-            if(response.getCode().equals("OK")){
-                result = true;
-            }else{
-                L.log.error("send message failed: code={} | message={} ",response.getCode(),response.getMessage());
-            }
-        }
-        return result;
+
+        return response;
 
     }
 

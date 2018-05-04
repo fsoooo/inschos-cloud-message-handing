@@ -6,6 +6,6 @@ package com.inschos.cloud.message.handing.access.rpc.service;
 
 public interface SmsSendService {
 
-    void sendVerifyCode(String phone,String code);
+    boolean sendVerifyCode(String fromCode,String phone, String code);
 
 }

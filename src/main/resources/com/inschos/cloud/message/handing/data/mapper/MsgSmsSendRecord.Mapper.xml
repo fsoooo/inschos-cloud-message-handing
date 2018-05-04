@@ -3,19 +3,19 @@
 <mapper namespace="com.inschos.cloud.message.handing.data.mapper.MsgSmsSendRecordMapper">
 
     <sql id="Base_Column_List">
-      `id`,`sms_id`,`send_status`,`created_at`,`updated_at`
+      `id`,`sms_id`,`send_status`,`describe`,`created_at`,`updated_at`
     </sql>
 
     <insert id="insert" parameterType="MsgSmsSendRecord">
-        insert ignore into msg_sms_send_record(`sms_id`,`send_status`,`created_at`,`updated_at`)
+        insert ignore into msg_sms_send_record(`sms_id`,`send_status`,`describe`,`created_at`,`updated_at`)
         values(
-          #{sms_id},#{send_status},#{created_at},#{updated_at}
+          #{sms_id},#{send_status},#{describe},#{created_at},#{updated_at}
         )
     </insert>
 
     <update id="update" parameterType="MsgSmsSendRecord">
         update msg_sms_send_record set
-          `sms_id`=#{sms_id},`send_status`=#{send_status},`created_at`=#{created_at},`updated_at`=#{updated_at}
+          `sms_id`=#{sms_id},`send_status`=#{send_status},`describe`=#{describe},`created_at`=#{created_at},`updated_at`=#{updated_at}
         where `id`=#{id}
     </update>
 

@@ -11,14 +11,16 @@ public class MsgSmsSendRecord {
     /** 短信记录id*/
     public long sms_id;
 
-    /** 状态  1 未发送  2发送中  3发送成功 4发送失败 */
+    /** 状态  1 未发送  2发送中  3已发送 4发送失败 */
     public int send_status;
+
+    public String describe;
 
     /** */
     public long created_at;
 
     /** */
-    public String updated_at;
+    public long updated_at;
 
 
 }

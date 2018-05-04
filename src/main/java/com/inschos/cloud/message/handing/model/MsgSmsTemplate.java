@@ -15,6 +15,9 @@ public class MsgSmsTemplate {
 
     public static final String T_SOURCE_ALIYUN = "ALIYUN";
 
+
+    public static final String T_TEMPLATE_ALIYUN_VERIFY_CODE = "SMS_133964015";
+
     /** 主键id*/
     public long id;
 

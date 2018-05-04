@@ -21,4 +21,8 @@ public class MsgSmsRecordDao {
     public int update(MsgSmsRecord record){
         return record!=null?msgSmsRecordMapper.update(record):0;
     }
+
+    public MsgSmsRecord findOne(long id){
+        return msgSmsRecordMapper.findOne(id);
+    }
 }
