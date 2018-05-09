@@ -68,7 +68,7 @@ public class MsgSmsTemplate {
                 if(jsonObject.has(v)){
                     value = jsonObject.getString(v);
                 }
-                msg.replaceAll(k,value);
+                msg.replace(k,value);
             });
         }
         content.append(msg);
