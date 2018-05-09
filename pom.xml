@@ -173,7 +173,7 @@
   </profiles>
 
   <build>
-    <finalName>file</finalName>
+    <finalName>msghanding</finalName>
     <defaultGoal>compile</defaultGoal>
     <plugins>
       <plugin>
