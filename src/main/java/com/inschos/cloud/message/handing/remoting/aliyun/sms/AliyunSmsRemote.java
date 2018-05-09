@@ -29,7 +29,9 @@ public class AliyunSmsRemote {
 
     @Autowired
     private MsgSmsRecordDao msgSmsRecordDao;
+    @Autowired
     private MsgSmsTemplateDao msgSmsTemplateDao;
+    @Autowired
     private MsgSmsSendRecordDao msgSmsSendRecordDao;
 
 
