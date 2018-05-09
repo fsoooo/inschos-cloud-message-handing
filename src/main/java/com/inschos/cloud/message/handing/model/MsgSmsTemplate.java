@@ -48,7 +48,7 @@ public class MsgSmsTemplate {
         String content = null;
         switch (tmp_source){
             case T_SOURCE_ALIYUN:
-                getAliContent(json);
+                content = getAliContent(json);
                 break;
         }
         return content;
