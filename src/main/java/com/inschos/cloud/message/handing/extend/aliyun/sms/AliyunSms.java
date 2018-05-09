@@ -8,7 +8,6 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.inschos.cloud.message.handing.assist.kit.L;
 import com.inschos.cloud.message.handing.assist.kit.StringKit;
 
 /**
@@ -52,6 +51,8 @@ public class AliyunSms {
 
         //组装请求对象
         SendSmsRequest request = new SendSmsRequest();
+
+
         //使用post提交
         request.setMethod(MethodType.POST);
         //必填:待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式

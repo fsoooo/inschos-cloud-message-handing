@@ -42,7 +42,6 @@ public class SmsSendServiceImpl implements SmsSendService {
                 aliyunSmsRemote.sendSms(smsRecord.id,smsRecord.send_content,phone);
             }
         }
-
         return result>0;
 
     }
