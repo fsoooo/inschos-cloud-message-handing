@@ -10,4 +10,5 @@ public interface SmsSendService {
 
     boolean sendAgentInvite(String fromCode,String phone,String name,String code);
 
+
 }

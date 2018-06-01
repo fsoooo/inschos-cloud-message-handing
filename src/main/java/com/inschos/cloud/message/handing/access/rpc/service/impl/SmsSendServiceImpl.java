@@ -48,7 +48,7 @@ public class SmsSendServiceImpl implements SmsSendService {
     @Override
     public boolean sendAgentInvite(String fromCode,String phone, String name, String code) {
 
-        MsgSmsTemplate template = msgSmsTemplateDao.findOneByTmpCode(MsgSmsTemplate.T_TEMPLATE_ALIYUN_VERIFY_CODE);
+        MsgSmsTemplate template = msgSmsTemplateDao.findOneByTmpCode(MsgSmsTemplate.T_TEMPLATE_ALIYUN_AGENT_INVITE_CODE);
         int result = 0;
         if(template!=null){
             MsgSmsRecord smsRecord = new MsgSmsRecord();
