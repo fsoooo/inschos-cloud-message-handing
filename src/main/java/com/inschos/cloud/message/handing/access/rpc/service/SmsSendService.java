@@ -8,4 +8,6 @@ public interface SmsSendService {
 
     boolean sendVerifyCode(String fromCode,String phone, String code);
 
+    boolean sendAgentInvite(String fromCode,String phone,String name,String code);
+
 }

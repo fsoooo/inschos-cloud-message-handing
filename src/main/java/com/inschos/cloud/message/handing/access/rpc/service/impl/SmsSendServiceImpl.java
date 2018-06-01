@@ -43,6 +43,30 @@ public class SmsSendServiceImpl implements SmsSendService {
             }
         }
         return result>0;
-
     }
+
+    @Override
+    public boolean sendAgentInvite(String fromCode,String phone, String name, String code) {
+
+        MsgSmsTemplate template = msgSmsTemplateDao.findOneByTmpCode(MsgSmsTemplate.T_TEMPLATE_ALIYUN_VERIFY_CODE);
+        int result = 0;
+        if(template!=null){
+            MsgSmsRecord smsRecord = new MsgSmsRecord();
+            smsRecord.created_at = smsRecord.updated_at = TimeKit.currentTimeMillis();
+            smsRecord.source_code = fromCode;
+            smsRecord.send_type = MsgSmsRecord.SEND_TYPE_NOW;
+            smsRecord.send_phone = phone;
+            smsRecord.send_content = "{\"name\":\""+name+"\",\"code\":\""+code+"\"}";
+            smsRecord.content = template.getContent(smsRecord.send_content);
+            smsRecord.tmp_code = template.tmp_code;
+            smsRecord.status = MsgSmsRecord.STATUS_WAITING;
+            result = msgSmsRecordDao.add(smsRecord);
+            if(result>0){
+                aliyunSmsRemote.sendSms(smsRecord.id,smsRecord.send_content,phone);
+            }
+        }
+        return result>0;
+    }
+
+
 }
