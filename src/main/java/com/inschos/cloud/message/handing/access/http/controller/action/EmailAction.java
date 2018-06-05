@@ -7,15 +7,11 @@ import com.inschos.cloud.message.handing.assist.kit.CheckParamsKit;
 import com.inschos.cloud.message.handing.assist.kit.JsonKit;
 import com.inschos.cloud.message.handing.data.dao.EmailInfoRecordDao;
 import com.inschos.cloud.message.handing.model.EmailInfoListRecord;
+import com.inschos.cloud.message.handing.remoting.mail.EmailRemote;
 import org.apache.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -24,10 +20,12 @@ public class EmailAction extends BaseAction {
 
     @Autowired
     private EmailInfoRecordDao emailInfoRecordDao;
+    @Autowired
+    private EmailRemote emailRemote;
 
     public String addEmailInfo(ActionBean actionBean){
         //获取接口传参
-        EmailInfoBean.EmailRequest request =  JsonKit.json2Bean(actionBean.body, EmailInfoBean.EmailRequest.class);
+        EmailInfoBean.EmailRequest request =  requst2Bean(actionBean.body, EmailInfoBean.EmailRequest.class);
         EmailInfoBean.EmailResponse response = new EmailInfoBean.EmailResponse();
 
         List<CheckParamsKit.Entry<String, String>> entries = checkParams(request);
@@ -59,11 +57,13 @@ public class EmailAction extends BaseAction {
         emailInfoListRecord.created_at = date;
         emailInfoListRecord.updated_at = date;
         logger.info(request.to_email);
-        int email_id = emailInfoRecordDao.addEmailInfo(emailInfoListRecord);
+        int result = emailInfoRecordDao.addEmailInfo(emailInfoListRecord);
 
         logger.info(emailInfoListRecord);
+
         //logger.info(email_id);
-        if (email_id > 0){
+        if (result > 0){
+            emailRemote.triggerSend(emailInfoListRecord);
             return json(BaseResponse.CODE_SUCCESS,emailInfoListRecord.id + "",response);
         } else {
             return json(BaseResponse.CODE_PARAM_ERROR, "Failure of mail data insert database",response);

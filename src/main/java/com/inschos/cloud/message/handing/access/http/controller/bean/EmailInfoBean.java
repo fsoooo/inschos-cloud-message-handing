@@ -14,8 +14,7 @@ public class EmailInfoBean {
         public String source_code;  //邮件来源标识
         @CheckParams
         public int send_type;       //发送方式  1即时 2定时
-        @CheckParams
-        public boolean merge_status;//邮件是否可以合并发送 true 可以合并 false 不可合并
+
         @CheckParams
         public String merge_code;   //邮件合并标识 同标识合并
         @CheckParams
