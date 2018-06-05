@@ -15,6 +15,11 @@ public class ConstantKit {
 
 	public static int API_CODE=2;
 
+	public static String MAIL_DEFAULT_SMTP_HOST;
+	public static String MAIL_DEFAULT_FROM;
+	public static String MAIL_DEFAULT_FROM_PASSWD;
+	public static String MAIL_DEFAULT_FROM_NICK;
+	public static int MAIL_DEFAULT_SMTP_PORT;
 
 
 	// 解决静态变量不能注解的问题

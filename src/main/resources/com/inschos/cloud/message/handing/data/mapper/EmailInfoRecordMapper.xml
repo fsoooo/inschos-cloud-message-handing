@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inschos.cloud.message.handing.data.mapper.EmailInfoRecordMapper">
+
+    <sql id="Base_Column_List">
+        `id`,`bekongs`,`source_code`,`send_type`,`merge_code`,`type`,`status`,`title`,`html`,`to_email`,`created_at`,`updated_at`
+    </sql>
+
+    <select id="findOneByTmpCode" parameterType="String" resultType="MsgSmsTemplate">
+        select
+        <include refid="Base_Column_List"/>
+        from com_mail_info
+        where `status`=#{status}
+    </select>
+
+    <insert id="insert" parameterType="EmailInfoRecord" keyProperty="id" useGeneratedKeys="true">
+        insert ignore into com_mail_info
+        (`bekongs`,`source_code`,`send_type`,`merge_code`,`type`,`status`,`title`,`html`,`to_email`,`created_at`,`updated_at`)
+        values(
+          #{bekongs},#{source_code},#{send_type},#{merge_code},#{type},#{status},#{title},#{html},#{to_email},#{created_at},#{updated_at}
+        )
+    </insert>
+
+    <update id="update" parameterType="EmailInfoRecord">
+        update com_mail_info set
+        `sms_id`=#{sms_id},`send_status`=#{send_status},`describe`=#{describe},`updated_at`=#{updated_at}
+        where `id`=#{id}
+    </update>
+
+
+</mapper>
