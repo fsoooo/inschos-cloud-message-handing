@@ -15,7 +15,11 @@
     <param-name>webAppRootKey</param-name>
     <param-value>inschos.message.handing</param-value>
   </context-param>
-  <listener>
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
+    <listener>
     <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
   </listener>
   <listener>

@@ -15,6 +15,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="/rpc/sms">smsSendService</prop>
+				<prop key="/rpc/file">smsSendService</prop>
 			</props>
 		</property>
 	</bean>
