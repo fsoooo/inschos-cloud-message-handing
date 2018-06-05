@@ -26,32 +26,33 @@ public class ConstantKit {
 
 	@Value("${IS_PRODUCT}")
 	private boolean _is_product = true;
-
+	@Value("${mail.host}")
 	private String _mail_host;
-
+	@Value("${mail.port}")
 	private int _mail_port;
-
-
+	@Value("${mail.nick_name}")
 	private String _nick_name;
-
+	@Value("${mail.username}")
 	private String _mail_username;
-
+	@Value("${mail.encryption}")
 	private String _mail_encryption;
-
+	@Value("${mail.password}")
 	private String _mail_password;
 
 
 	@PostConstruct
 	public void init() {
 		IS_PRODUCT = this._is_product;
+
 		MAIL_DEFAULT_SMTP_HOST = this._mail_host;
+
 		MAIL_DEFAULT_FROM = this._mail_username;
 
 		MAIL_DEFAULT_FROM_NICK = this._nick_name;
 
 		MAIL_DEFAULT_FROM_PASSWD = this._mail_password;
-		MAIL_DEFAULT_SMTP_PORT = this._mail_port;
 
+		MAIL_DEFAULT_SMTP_PORT = this._mail_port;
 	}
 
 

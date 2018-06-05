@@ -23,7 +23,7 @@
 
     <update id="update" parameterType="EmailInfoRecord">
         update com_mail_info set
-        `sms_id`=#{sms_id},`send_status`=#{send_status},`describe`=#{describe},`updated_at`=#{updated_at}
+        `status`=#{status},`updated_at`=#{updated_at}
         where `id`=#{id}
     </update>
 

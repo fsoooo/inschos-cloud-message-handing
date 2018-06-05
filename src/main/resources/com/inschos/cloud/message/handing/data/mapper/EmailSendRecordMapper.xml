@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inschos.cloud.message.handing.data.mapper.EmailSendRecordMapper">
+    <sql id="Base_Column_List">
+        `id`,`mail_id`,`send_status`,`rec_msg`,`created_at`,`updated_at`
+    </sql>
+
+    <select id="findOneByTmpCode" parameterType="String" resultType="MsgSmsTemplate">
+        select
+        <include refid="Base_Column_List"/>
+        from com_mail_log
+        where `mail_id`=#{mail_id}
+    </select>
+
+    <insert id="insert" parameterType="EmailSendRecord" keyProperty="id" useGeneratedKeys="true">
+        insert ignore into com_mail_log
+        (`mail_id`,`send_status`,`rec_msg`,`created_at`,`updated_at`)
+        values(
+          #{mail_id},#{send_status},#{rec_msg},#{created_at},#{updated_at}
+        )
+    </insert>
+
+    <update id="update" parameterType="EmailSendRecord">
+        update com_mail_log set
+        `send_status`=#{send_status},`rec_msg`=#{rec_msg},`updated_at`=#{updated_at}
+        where `mail_id`=#{mail_id}
+    </update>
+
+
+</mapper>

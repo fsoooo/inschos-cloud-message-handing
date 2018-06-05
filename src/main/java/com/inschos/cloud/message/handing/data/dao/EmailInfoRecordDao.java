@@ -15,4 +15,8 @@ public class EmailInfoRecordDao {
         return emailInfoRecordMapper.insert(emailInfoListRecord);
     }
 
+    public int updateEmailInfo(EmailInfoListRecord emailInfoListRecord){
+        return emailInfoRecordMapper.update(emailInfoListRecord);
+    }
+
 }

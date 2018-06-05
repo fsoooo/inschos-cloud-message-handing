@@ -2,7 +2,7 @@ package com.inschos.cloud.message.handing.model;
 
 public class EmailInfoListRecord {
 
-    public long id;             //主机id
+    public long id;             //主键id
 
     public String bekongs;      //邮件所属
 

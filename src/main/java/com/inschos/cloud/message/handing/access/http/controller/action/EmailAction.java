@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Component
@@ -57,13 +58,17 @@ public class EmailAction extends BaseAction {
         emailInfoListRecord.created_at = date;
         emailInfoListRecord.updated_at = date;
         logger.info(request.to_email);
-        int result = emailInfoRecordDao.addEmailInfo(emailInfoListRecord);
+        long result = emailInfoRecordDao.addEmailInfo(emailInfoListRecord);
 
         logger.info(emailInfoListRecord);
 
         //logger.info(email_id);
         if (result > 0){
-            emailRemote.triggerSend(emailInfoListRecord);
+            try {
+                emailRemote.triggerSend(emailInfoListRecord);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
             return json(BaseResponse.CODE_SUCCESS,emailInfoListRecord.id + "",response);
         } else {
             return json(BaseResponse.CODE_PARAM_ERROR, "Failure of mail data insert database",response);
