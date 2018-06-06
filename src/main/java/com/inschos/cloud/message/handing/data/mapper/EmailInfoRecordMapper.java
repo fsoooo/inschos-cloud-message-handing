@@ -9,6 +9,6 @@ public interface EmailInfoRecordMapper {
 
     int update(EmailInfoListRecord emailInfoListRecord);
 
-
+    EmailInfoListRecord findOne(int mail_id);
 
 }

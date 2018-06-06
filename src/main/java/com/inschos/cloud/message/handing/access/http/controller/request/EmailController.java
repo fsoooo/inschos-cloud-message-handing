@@ -25,4 +25,11 @@ public class EmailController {
         return emailAction.addEmailInfo(actionBean);
     }
 
+    @GetActionBeanAnnotation(isCheckAccess = false)
+    @RequestMapping("/status")
+    @ResponseBody
+    public String sendEmailStatus(ActionBean actionBean){
+            return emailAction.sendEmailStatus(actionBean);
+    }
+
 }

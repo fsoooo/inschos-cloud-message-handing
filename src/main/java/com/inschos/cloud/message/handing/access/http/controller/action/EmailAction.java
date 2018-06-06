@@ -75,8 +75,24 @@ public class EmailAction extends BaseAction {
         }
     }
 
-    public String updateEmailInfo(){
-        return "修改邮件状态";
+    /**
+     * 查询邮件发送状态
+     * @return
+     */
+    public String sendEmailStatus(ActionBean actionBean){
 
+        EmailInfoBean.EmailStatusRequest request =  requst2Bean(actionBean.body, EmailInfoBean.EmailStatusRequest.class);
+        EmailInfoBean.EmailResponse response = new EmailInfoBean.EmailResponse();
+
+        if (request.mail_id == 0) {
+            return json(BaseResponse.CODE_PARAM_ERROR,"Mail_id is an invalid parameter",response);
+        }
+        EmailInfoListRecord emailInfoListRecord = emailInfoRecordDao.findOneMailInfo(request.mail_id);
+
+        if (emailInfoListRecord != null) {
+            return json(BaseResponse.CODE_SUCCESS,EmailInfoBean.sendStatus(emailInfoListRecord.status),response);
+        } else {
+            return json(BaseResponse.CODE_PARAM_ERROR, "Mail records do not exist",response);
+        }
     }
 }

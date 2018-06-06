@@ -6,11 +6,11 @@
         `id`,`bekongs`,`source_code`,`send_type`,`merge_code`,`type`,`status`,`title`,`html`,`to_email`,`created_at`,`updated_at`
     </sql>
 
-    <select id="findOneByTmpCode" parameterType="String" resultType="MsgSmsTemplate">
+    <select id="findOne" parameterType="int" resultType="EmailInfoListRecord">
         select
         <include refid="Base_Column_List"/>
         from com_mail_info
-        where `status`=#{status}
+        where `id`=#{mail_id}
     </select>
 
     <insert id="insert" parameterType="EmailInfoRecord" keyProperty="id" useGeneratedKeys="true">
@@ -26,6 +26,5 @@
         `status`=#{status},`updated_at`=#{updated_at}
         where `id`=#{id}
     </update>
-
 
 </mapper>

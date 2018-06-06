@@ -72,8 +72,8 @@ public class MailKit {
         transport.connect(smtpHost,port,from, fromUserPassword);
 
         transport.send(message, message.getRecipients(RecipientType.TO));
-        //Transport.send(message);
-        log.info("mail to "+to+" send success");
+
+        log.info("mail to "+ to +" send success");
     }
 
     public static class MailAuthenticator extends Authenticator{

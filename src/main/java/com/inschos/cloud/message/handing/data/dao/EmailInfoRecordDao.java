@@ -19,4 +19,8 @@ public class EmailInfoRecordDao {
         return emailInfoRecordMapper.update(emailInfoListRecord);
     }
 
+    public EmailInfoListRecord findOneMailInfo(int mail_id){
+        return emailInfoRecordMapper.findOne(mail_id);
+    }
+
 }
