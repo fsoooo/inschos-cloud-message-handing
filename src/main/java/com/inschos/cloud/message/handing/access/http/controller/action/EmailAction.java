@@ -5,6 +5,7 @@ import com.inschos.cloud.message.handing.access.http.controller.bean.BaseRespons
 import com.inschos.cloud.message.handing.access.http.controller.bean.EmailInfoBean;
 import com.inschos.cloud.message.handing.assist.kit.CheckParamsKit;
 import com.inschos.cloud.message.handing.assist.kit.JsonKit;
+import com.inschos.cloud.message.handing.assist.kit.StringKit;
 import com.inschos.cloud.message.handing.data.dao.EmailInfoRecordDao;
 import com.inschos.cloud.message.handing.model.EmailInfoListRecord;
 import com.inschos.cloud.message.handing.remoting.mail.EmailRemote;
@@ -50,9 +51,14 @@ public class EmailAction extends BaseAction {
         emailInfoListRecord.html = request.html;
 
         if (request.to_email != null &&  !request.to_email.isEmpty()) {
+            for (String s : request.to_email) {
+                if (!StringKit.isEmail(s)){
+                    return json(BaseResponse.CODE_PARAM_ERROR, "Unlawful mail address",response);
+                }
+            }
             emailInfoListRecord.to_email = JsonKit.bean2Json(request.to_email);
         } else {
-            emailInfoListRecord.to_email = "";
+            return json(BaseResponse.CODE_PARAM_ERROR, "Unlawful mail address",response);
         }
 
         emailInfoListRecord.created_at = date;
@@ -62,7 +68,6 @@ public class EmailAction extends BaseAction {
 
         logger.info(emailInfoListRecord);
 
-        //logger.info(email_id);
         if (result > 0){
             try {
                 emailRemote.triggerSend(emailInfoListRecord);

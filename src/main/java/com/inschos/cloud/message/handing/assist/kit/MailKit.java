@@ -6,17 +6,34 @@ import org.slf4j.LoggerFactory;
 
 import javax.mail.*;
 import javax.mail.Message.RecipientType;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.Calendar;
-import java.util.Properties;
+import java.util.*;
 
 public class MailKit {
     private static Logger log = LoggerFactory.getLogger(MailKit.class);
 
-    public static void sendMessage(String to, String title,
-                                   String messageText) throws MessagingException {
+    public static boolean sendMessage(String to, String title,
+                                      String messageText) throws MessagingException {
+        return sendMessage(new String[]{to},title,messageText);
+    }
+
+    public static boolean sendMessage(List<String> list, String title,
+                                      String messageText) throws MessagingException {
+
+        if (list == null || list.isEmpty()) {
+            return false;
+        }
+
+        String[] to = list.toArray(new String[1]);
+
+        return sendMessage(to,title,messageText);
+    }
+
+    public static boolean sendMessage(String[] to, String title,
+                                      String messageText) throws MessagingException {
         String smtpHost = ConstantKit.MAIL_DEFAULT_SMTP_HOST;
         String from = ConstantKit.MAIL_DEFAULT_FROM;
         String fromUserPassword = ConstantKit.MAIL_DEFAULT_FROM_PASSWD;
@@ -24,12 +41,12 @@ public class MailKit {
         String nick = ConstantKit.MAIL_DEFAULT_FROM_NICK;
         int port = ConstantKit.MAIL_DEFAULT_SMTP_PORT;
 
-        sendMessage(smtpHost,port,from,fromUserPassword,to,title,messageText,messageType,nick);
+        return sendMessage(smtpHost,port,from,fromUserPassword,to,title,messageText,messageType,nick);
     }
 
-    public static void sendMessage(String smtpHost,int port, String from,
-                                   String fromUserPassword, String to, String title,
-                                   String messageText, String messageType,String nick) throws MessagingException {
+    public static boolean sendMessage(String smtpHost, int port, String from,
+                                      String fromUserPassword, String[] to, String title,
+                                      String messageText, String messageType, String nick) throws MessagingException {
         // 第一步：配置javax.mail.Session对象
 
         Properties props = new Properties();
@@ -54,26 +71,51 @@ public class MailKit {
             e.printStackTrace();
             log.error("",e);
         }
-        InternetAddress fromAddress = new InternetAddress(nick+" <"+from+">");
-        InternetAddress toAddress = new InternetAddress(to);
 
-        MimeMessage message = new MimeMessage(mailSession);
+        boolean falg = false;
 
-        message.setFrom(fromAddress);
-        message.addRecipient(RecipientType.TO, toAddress);
+        try {
 
-        message.setSentDate(Calendar.getInstance().getTime());
-        message.setSubject(title);
-        message.setContent(messageText, messageType);
+            MimeMessage message = new MimeMessage(mailSession);
+            InternetAddress fromAddress = new InternetAddress(nick+" <"+from+">");
+            message.setFrom(fromAddress);
 
-        // 第三步：发送消息
-        Transport transport = mailSession.getTransport("smtp");
+            if (to != null && to.length >0) {
+                for (String s : to) {
+                    if (StringKit.isEmail(s)) {
+                        InternetAddress toAddress = new InternetAddress(s);
+                        message.addRecipient(RecipientType.TO, toAddress);
+                    }
+                }
+            }
 
-        transport.connect(smtpHost,port,from, fromUserPassword);
+            Address[] addresses = message.getRecipients(RecipientType.TO);
 
-        transport.send(message, message.getRecipients(RecipientType.TO));
+            if (addresses == null || addresses.length == 0) {
+                return false;
+            }
 
-        log.info("mail to "+ to +" send success");
+            message.setSentDate(Calendar.getInstance().getTime());
+            message.setSubject(title);
+            message.setContent(messageText, messageType);
+
+            // 第三步：发送消息
+            Transport transport = mailSession.getTransport("smtp");
+
+            transport.connect(smtpHost,port,from, fromUserPassword);
+
+            transport.send(message, addresses);
+
+            falg = true;
+
+        } catch (AddressException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return falg;
     }
 
     public static class MailAuthenticator extends Authenticator{
