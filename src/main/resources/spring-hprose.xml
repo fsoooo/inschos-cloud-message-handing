@@ -16,6 +16,7 @@
 			<props>
 				<prop key="/rpc/sms">smsSendService</prop>
 				<prop key="/rpc/file">smsSendService</prop>
+				<prop key="/rpc/email">emailSendService</prop>
 			</props>
 		</property>
 	</bean>
@@ -27,6 +28,14 @@
 		<property name="service" ref="smsSendServiceImpl"/>
 		<property name="serviceInterface"
 			value="com.inschos.cloud.message.handing.access.rpc.service.SmsSendService" />
+	</bean>
+	<bean name="emailSendService"
+		class="org.springframework.remoting.hprose.HproseHttpServiceExporter">
+		<property name="event" ref="hproseHttpServiceEventExporter"/>
+		<property name="debug" value="${rpc.hprose.debug}"/>
+		<property name="service" ref="emailSendServiceImpl"/>
+		<property name="serviceInterface"
+			value="com.inschos.cloud.message.handing.access.rpc.service.EmailSendService" />
 	</bean>
 
 
