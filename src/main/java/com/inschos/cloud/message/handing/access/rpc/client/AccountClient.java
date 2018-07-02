@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountClient {
 
-//    @Value("${rpc.remote.account.host}")
-//    private String host;
+    @Value("${rpc.remote.account.host}")
+    private String host;
 
-    private final String uri = "http://122.14.202.146:9200/account/rpc/account";
+    private final String uri = "/rpc/account";
 
 
     private AccountService getService(){
