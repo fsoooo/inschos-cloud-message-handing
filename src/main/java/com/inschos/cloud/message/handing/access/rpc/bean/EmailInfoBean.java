@@ -1,7 +1,6 @@
 package com.inschos.cloud.message.handing.access.rpc.bean;
 
-import com.inschos.cloud.message.handing.access.http.controller.bean.BaseRequest;
-import com.inschos.cloud.message.handing.access.http.controller.bean.BaseResponse;
+
 import com.inschos.cloud.message.handing.annotation.CheckParams;
 
 import java.util.List;
