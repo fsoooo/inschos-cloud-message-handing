@@ -89,7 +89,7 @@ public class HttpAopDefine {
 
     private boolean isValidVersion(String buildCode, String platform) {
         if (StringKit.isEmpty(buildCode)) {
-            return false;
+//            return false;
         }
         return true;
     }
