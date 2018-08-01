@@ -20,6 +20,9 @@ public class MsgSmsTemplate {
 
     public static final String T_TEMPLATE_ALIYUN_AGENT_INVITE_CODE = "SMS_135034351";
 
+    public static final String T_TEMPLATE_ALIYUN_WINNING_CODE = "SMS_141200227";
+
+
     /** 主键id*/
     public long id;
 
