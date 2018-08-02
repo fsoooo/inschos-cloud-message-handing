@@ -83,13 +83,13 @@ public class SmsAction extends BaseAction {
     }
 
 
-    public String sendWinningActivity(HttpServletRequest httpServletRequest) {
+    public boolean sendWinningActivity(HttpServletRequest httpServletRequest) {
         SmsBean.Request request = JsonKit.json2Bean(HttpKit.readRequestBody(httpServletRequest),  SmsBean.Request.class);
         if (request == null) {
-            return "1";
+            return false;
         }
         if (request.fromCode == null || request.phone == null || request.content == null) {
-            return "2";
+            return false;
         }
         MsgSmsTemplate template = msgSmsTemplateDao.findOneByTmpCode(MsgSmsTemplate.T_TEMPLATE_ALIYUN_WINNING_CODE);
         int result = 0;
@@ -108,7 +108,7 @@ public class SmsAction extends BaseAction {
                 aliyunSmsRemote.sendSms(smsRecord.id, smsRecord.send_content, request.phone);
             }
         }
-        return "3";
+        return result > 0;
     }
 
 }

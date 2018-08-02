@@ -32,7 +32,7 @@ public class SmsController {
 
     @RequestMapping("/sendWinningActivity")
     @ResponseBody
-    public String sendWinningActivity(HttpServletRequest request){
+    public Boolean sendWinningActivity(HttpServletRequest request){
         return smsAction.sendWinningActivity(request);
     }
 }
